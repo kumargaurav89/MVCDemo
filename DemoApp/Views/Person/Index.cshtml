@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DataAccess.Models.Person>
+
+@{
+    ViewBag.Title = "Person";
+}
+
+<h2>Person List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Person")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Sr. No.
+            @*Html.DisplayNameFor(model => model.BusinessEntityID)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th> Actions </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusinessEntityID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Person", new { id = item.BusinessEntityID }) |
+                @*@Html.ActionLink("Details", "Person", new { id = item.BusinessEntityID }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.BusinessEntityID })
+            </td>
+        </tr>
+    }
+
+</table>
