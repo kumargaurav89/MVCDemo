@@ -1,9 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DemoApp.Controllers
@@ -33,12 +30,14 @@ namespace DemoApp.Controllers
             else
             {
                 DataAccessService da = new DataAccessService();
-                p = da.GetPerson(id).FirstOrDefault();
+                //p = da.GetPerson(id).FirstOrDefault();
+                p = da.suffixPerson().FirstOrDefault();
             }
             return View(p);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Person(Person p)
         {
             if (ModelState.IsValid)

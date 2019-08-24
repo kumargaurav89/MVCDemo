@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessService.cs" />
+    <Compile Include="Enum\StaticLookupEnums.cs" />
+    <Compile Include="Models\DropDownItem.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

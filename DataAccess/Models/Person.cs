@@ -12,8 +12,8 @@ namespace DataAccess.Models
 
         [Display(Name = "Title")]
         //[Required(ErrorMessage ="Title is required.")]
-       // [MaxLength(12, ErrorMessage = "Title should be between 8 - 12 char long.")]
-       // [MinLength(8, ErrorMessage = "Title should be between 8 - 12 char long.")]
+        // [MaxLength(12, ErrorMessage = "Title should be between 8 - 12 char long.")]
+        // [MinLength(8, ErrorMessage = "Title should be between 8 - 12 char long.")]
         public string Title { get; set; }
 
         [Display(Name = "First Name")]
@@ -23,5 +23,17 @@ namespace DataAccess.Models
         [Display(Name = "Last Name")]
         [Required]
         public string LastName { get; set; }
+
+        [Display(Name = "Suffix")]
+        public List<sufixx> Suffix { get; set; }
+
+        [Display(Name = "Person Type")]
+        [Required]
+        public string PersonType { get; set; }
+    }
+    public class sufixx
+    {
+        public string suffixx { get; set; }
+
     }
 }

@@ -35,7 +35,7 @@ namespace DataAccess
             {
                 conn.Open();
 
-                return conn.Query<Person>($"SELECT [BusinessEntityID],[Title],[FirstName],[LastName] FROM[Person].[Person] where [BusinessEntityID] = {id} or {id} = 0").ToList();
+                return conn.Query<Person>($"SELECT [BusinessEntityID],[Title],[FirstName],[LastName],PersonType,Suffix FROM [Person].[Person] where [BusinessEntityID] = {id} or {id} = 0").ToList();
             }
             catch (Exception ex)
             {
@@ -58,7 +58,58 @@ namespace DataAccess
             {
                 conn.Open();
 
-                return conn.Query<Person>("SELECT top 20 [BusinessEntityID],[Title],[FirstName],[LastName] FROM[Person].[Person] order by 1 desc").ToList();
+                return conn.Query<Person>("SELECT [BusinessEntityID],[Title],[FirstName],[LastName],Suffix,PersonType FROM [Person].[Person] order by 1 desc").ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //throw new YourCustomException("Put your error message here.", e);
+                //Handle exception, perhaps log it and do the needful
+            }
+            finally
+            {
+                //Connection should always be closed here so that it will close always
+                conn.Close();
+            }
+
+            return null;
+        }
+
+        //to get suffix for dropdown
+        public List<Person> suffixPerson()
+        {
+            try
+
+            {
+                conn.Open();
+
+                return conn.Query<Person>("SELECT DISTINCT [Suffix] FROM [Person].[Person] WHERE [Suffix] is not null").ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //throw new YourCustomException("Put your error message here.", e);
+                //Handle exception, perhaps log it and do the needful
+            }
+            finally
+            {
+                //Connection should always be closed here so that it will close always
+                conn.Close();
+            }
+
+            return null;
+        }
+
+        
+        //person type for drop down
+        public IEnumerable<DropDownItem> PersonType()
+        {
+            try
+
+            {
+                conn.Open();
+
+                return conn.Query<DropDownItem>("SELECT DISTINCT Id=PersonType, Text=PersonType FROM [Person].[Person] WHERE PersonType is not null");
             }
             catch (Exception ex)
             {
@@ -81,7 +132,7 @@ namespace DataAccess
             {
                 conn.Open();
 
-                conn.Query<Person>($"delete FROM[Person].[Person] where BusinessEntityID = {id}").ToList();
+                conn.Query<Person>($"delete FROM [Person].[Person] where BusinessEntityID = {id}").ToList();
             }
             catch (Exception ex)
             {
