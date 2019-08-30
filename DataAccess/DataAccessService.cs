@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace DataAccess
 {
-    public class DataAccessService
+    public class DataAccessService : IDataAccessService
     {
         public SqlConnection conn { get; set; }
 
@@ -18,7 +18,7 @@ namespace DataAccess
         {
             try
             {
-                conn = new SqlConnection("Data Source= DESKTOP-LKVJU83\\SQLEXPRESS; Integrated Security=true;Initial Catalog= AdventureWorks2017;");
+                conn = new SqlConnection("Data Source=DESKTOP-LKVJU83\\SQLEXPRESS;Initial Catalog=AdventureWorks2017;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
             catch (Exception ex)
             {
@@ -127,6 +127,27 @@ namespace DataAccess
         }
 
         public void DeletePerson(int id)
+        {
+            try
+            {
+                conn.Open();
+
+                conn.Query<Person>($"delete FROM [Person].[Person] where BusinessEntityID = {id}").ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //Handle exception, perhaps log it and do the needful
+            }
+            finally
+            {
+                //Connection should always be closed here so that it will close always
+                conn.Close();
+            }
+        }
+
+        //code for login
+        public void LoginUser(int id)
         {
             try
             {

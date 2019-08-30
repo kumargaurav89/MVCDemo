@@ -25,15 +25,10 @@ namespace DataAccess.Models
         public string LastName { get; set; }
 
         [Display(Name = "Suffix")]
-        public List<sufixx> Suffix { get; set; }
+        public string Suffix { get; set; }
 
         [Display(Name = "Person Type")]
         [Required]
         public string PersonType { get; set; }
-    }
-    public class sufixx
-    {
-        public string suffixx { get; set; }
-
     }
 }

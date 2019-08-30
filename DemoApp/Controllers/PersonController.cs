@@ -7,10 +7,15 @@ namespace DemoApp.Controllers
 {
     public class PersonController : Controller
     {
+        private readonly IDataAccessService _dataAccessService;
+
+        public PersonController(IDataAccessService dataAccessService)
+        {
+            _dataAccessService = dataAccessService;
+        }
         public ActionResult Index()
         {
-            DataAccessService da = new DataAccessService();
-            return View(da.AllPerson());
+            return View(_dataAccessService.AllPerson());
         }
 
         public ActionResult Person(int id = 0)
@@ -29,9 +34,8 @@ namespace DemoApp.Controllers
             }
             else
             {
-                DataAccessService da = new DataAccessService();
-                //p = da.GetPerson(id).FirstOrDefault();
-                p = da.suffixPerson().FirstOrDefault();
+                //p = _dataAccessService.GetPerson(id).FirstOrDefault();
+                p = _dataAccessService.suffixPerson().FirstOrDefault();
             }
             return View(p);
         }
@@ -43,8 +47,7 @@ namespace DemoApp.Controllers
             if (ModelState.IsValid)
             {
                 //code for db insert
-                DataAccessService da = new DataAccessService();
-                da.InsertPerson(p);
+                _dataAccessService.InsertPerson(p);
                 return RedirectToAction("Index");
             }
             return View(p);
@@ -53,50 +56,10 @@ namespace DemoApp.Controllers
     //    [HttpDelete]
         public ActionResult Delete(int id)
         {
-           
                 //code for db insert
-                DataAccessService da = new DataAccessService();
-                da.DeletePerson(id);
+                _dataAccessService.DeletePerson(id);
                 return RedirectToAction("Index");
 
         }
-
-        /*[HttpPost]
-        public ActionResult Save(Person newPerson)
-        {
-            return JavaScript("alert('Email sent successfully');");
-
-            if (ModelState.IsValid)
-            {
-               // db.AddToMovies(newPerson);
-               // db.SaveChanges();
-
-                return RedirectToAction("Person");
-            }
-            else
-            {
-                return View(newPerson);
-            }
-        }
-
-
-        /*[HttpPost]
-        public ActionResult Person(Person person)
-        {
-            DataAccessService da = new DataAccessService();
-            int id = da.InsertPerson(person);
-            return View();
-        }
-
-        public ActionResult ActionName(Person model, string whichButton)
-        {
-            switch (whichButton)
-            {
-                case "Save": //do stuff and redirect to the list of records
-                    break;
-                case "SaveAndAdd": //do stuff and redirect to create
-                    break;
-            }
-        }*/
     }
 }

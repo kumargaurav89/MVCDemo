@@ -1,0 +1,105 @@
+﻿@*
+    <html lang="en">
+    <head>
+
+    </head>
+    <body class="table table-striped" id="tbl-signup">
+        <div class="bs-example" style="align-content:center">
+
+            <div class="form-group centerlook">
+                <h1> Sign Up </h1>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">First Name</span>
+                <input id="FirstName" type="text" class="form-control" name="FirstName" placeholder="First Name">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Last Name</span>
+                <input id="LastName" type="text" class="form-control" name="LastName" placeholder="Last Name">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Email</span>
+                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Password</span>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Confirm Password</span>
+                <input id="ConfirmPassword" type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
+            </div>
+            <br>
+
+            @Html.ActionLink("Sign Up", "SignUpUser", "Login", new { @class = "loginbtn btn btn-primary text-danger" })
+            @Html.ActionLink("Login", "LoginUser", "Login", new { @class = "loginbtn btn btn-primary text-danger" })
+        </div>
+    </body>
+    </html>*@
+
+@{
+    ViewBag.Title = "Sign Up Page";
+}
+@using DataAccess.Models
+@using DataAccess
+@model DataAccess.Models.User
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sign Up</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sign Up" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Login")
+</div>
