@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,16 +24,48 @@ namespace DemoApp.Controllers
         }
 
         //code for login user
-        public ActionResult LoginUser(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginUser(User user)
         {
-            _dataAccessService.LoginUser(id);
+            User test;
+            test = _dataAccessService.LoginUser(user).FirstOrDefault();
+            if (test == null)
+            {
+                MessageBox.Show("Invalid user name or password.");
+            }
+            else
+            {
+                MessageBox.Show(test.UserName);
+            }
             return RedirectToAction("Login");
         }
 
         //Code for new user
-        public ActionResult SignUpUser()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUpUser(User u)
         {
-            //MessageBox.Show("SignUpUser");
+            if(u.Password == u.ConfirmPassword && u.Password != null)
+            {
+                _dataAccessService.InsertUser(u);
+                MessageBox.Show("User created successfully");
+                return View("Login");
+            }
+            else
+            {
+                MessageBox.Show("Please enter the details.");
+                return View("SignUp");
+            }
+           // MessageBox.Show("SignUpUser");
+            //return RedirectToAction("SignUp");
+            
+        }
+
+        //call sign up page
+        public ActionResult SignUpPage()
+        {
+            MessageBox.Show("SignUpUser");
             //return RedirectToAction("SignUp");
             return View("SignUp");
         }

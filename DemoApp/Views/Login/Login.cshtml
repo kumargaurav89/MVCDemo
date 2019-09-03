@@ -1,27 +1,32 @@
 ﻿@{
     ViewBag.Title = "Login Page";
 }
-<html lang="en">  
-<head>
-  
-</head>  
-    <body>  
-        <div class="bs-example">  
-  
-            <div class="form-group centerlook">  
-                <h1> Login </h1>  
-            </div>  
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <br>
-            @Html.ActionLink("Login", "LoginUser", "Login", new { @class = "loginbtn btn btn-primary text-danger" })
-            @Html.ActionLink("Sign Up", "SignUpUser", "Login", new { @class = "loginbtn btn btn-primary text-danger" })
+@using (@Html.BeginForm("LoginUser", "Login"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form form-horizontal">
+        <div class="form-group centerlook">
+            <h1> Login </h1>
         </div>
-    </body>  
-</html>
+        <div class="input-group form-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+        </div>
+        <div class="input-group form-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br />
+        @*@Html.ActionLink("Forget Password", "SignUp")*@
+
+        <div class="form-group">
+            <div class="col-md-2 ">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("Sign Up", "SignUpPage", "Login", new { @class = "btn btn-default" })
+            </div>
+            <div class="col-md-10"></div>
+        </div>
+
+    </div>
+}

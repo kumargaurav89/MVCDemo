@@ -26,7 +26,7 @@ namespace DemoApp
         public static IUnityContainer Container => container.Value;
         #endregion
 
-        /// <summary>
+        /// <summary>Si
         /// Registers the type mappings with the Unity container.
         /// </summary>
         /// <param name="container">The unity container to configure.</param>

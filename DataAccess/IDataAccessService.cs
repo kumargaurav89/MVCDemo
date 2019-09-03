@@ -15,6 +15,7 @@ namespace DataAccess
         IEnumerable<DropDownItem> PersonType();
         void DeletePerson(int id);
         void InsertPerson(Person person);
-        void LoginUser(int id);
+        List<User> LoginUser(User user);
+        void InsertUser(User user);
     }
 }
